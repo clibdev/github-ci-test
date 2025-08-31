@@ -24,6 +24,15 @@ jobs:
           name: Release.txt
           path: Release.txt
           compression-level: 0
+      - name: Publish the release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: 1.0.0
+          allowUpdates: true
+          replacesArtifacts: true
+          omitBodyDuringUpdate: true
+          artifacts: ./Release.txt
+
 #      - name: Build the Docker image
 #        run: docker build -t ninja scripts
 #      - name: Build the project
