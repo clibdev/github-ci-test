@@ -34,7 +34,6 @@ jobs:
         with:
           tag_name: $VERSION
           files: Release.txt
-
 #      - name: Build the Docker image
 #        run: docker build -t ninja scripts
 #      - name: Build the project
