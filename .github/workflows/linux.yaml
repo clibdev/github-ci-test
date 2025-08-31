@@ -35,7 +35,7 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           body: "[Release notes](https://github.com/ninja-build/ninja/releases/tag/${{ env.VERSION }})"
-          files: /app/build/x86_64-linux-gnu/ninja
+          files: /app/build/x86_64-linux-gnu/bin/ninja
 
 #      - name: Build the Docker image
 #        run: docker build -t ninja scripts
