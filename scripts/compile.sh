@@ -1,7 +1,9 @@
 #!/bin/bash
 
+VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+')
+
 cd /tmp
-git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=v1.13.1
+git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=$VERSION
 cd ninja
 
 TOOLCHAINS=(

@@ -8,7 +8,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-instal
     && curl -sSLo gcc-aarch64-linux-gnu.tar.gz https://github.com/prepkg/gcc-toolchain/releases/latest/download/gcc-aarch64-linux-gnu.tar.gz \
     && tar xf gcc-x86_64-linux-gnu.tar.gz -C /opt && rm -rf gcc-x86_64-linux-gnu.tar.gz \
     && tar xf gcc-aarch64-linux-gnu.tar.gz -C /opt && rm -rf gcc-aarch64-linux-gnu.tar.gz \
-    && apt-get purge --autoremove -y curl \
     && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/bin/bash"]
