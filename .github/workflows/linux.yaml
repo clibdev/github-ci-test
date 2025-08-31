@@ -34,7 +34,6 @@ jobs:
           body: "[Release notes](https://github.com/ninja-build/ninja/releases/tag/${{ env.VERSION }})"
           files: Release.txt
 
-
 #      - name: Build the Docker image
 #        run: docker build -t ninja scripts
 #      - name: Build the project
