@@ -23,6 +23,7 @@ jobs:
         with:
           name: Release.txt
           path: Release.txt
+          compression-level: 0
 #      - name: Build the Docker image
 #        run: docker build -t ninja scripts
 #      - name: Build the project
