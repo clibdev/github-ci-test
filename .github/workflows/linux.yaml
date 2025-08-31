@@ -23,7 +23,7 @@ jobs:
       - name: Build the Docker image
         if: env.VERSION != env.CURRENT_VERSION
         run: docker build -t ninja scripts
-      - name: Build the project
+      - name: Build the application
         if: env.VERSION != env.CURRENT_VERSION
         run: |
           docker run --rm -v ./:/app ninja scripts/compile.sh
