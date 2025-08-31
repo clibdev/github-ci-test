@@ -15,5 +15,5 @@ jobs:
         uses: actions/checkout@v5
       - name: Install the tools
         run: choco install re2c
-      - name: Build the project
+      - name: Build the application
         run: .\scripts\compile.bat
