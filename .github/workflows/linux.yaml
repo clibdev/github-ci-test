@@ -23,7 +23,7 @@ jobs:
       - name: Clone the repository
         if: env.VERSION != env.CURRENT_VERSION
         uses: actions/checkout@v5
-      - name: Build
+      - name: Build the project
         if: env.VERSION != env.CURRENT_VERSION
         run: echo ${{ github.sha }} > Release.txt
       - name: Publish the release
