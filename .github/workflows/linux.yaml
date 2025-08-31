@@ -23,8 +23,6 @@ jobs:
         with:
           tag_name: 1.0.0
           files: Release.txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      - name: Build the Docker image
 #        run: docker build -t ninja scripts
 #      - name: Build the project
