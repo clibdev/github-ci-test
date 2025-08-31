@@ -20,16 +20,10 @@ jobs:
         run: echo ${{ github.sha }} > Release.txt
       - name: Test
         run: cat Release.txt
-      - name: Upload the binaries
-        uses: actions/upload-artifact@v4
-        with:
-          name: Release.txt
-          path: Release.txt
-          compression-level: 0
       - name: Publish the release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: 1.0.1
+          tag_name: 1.0.2
           files: Release.txt
 
 #      - name: Build the Docker image
