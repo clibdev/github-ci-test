@@ -14,16 +14,19 @@ jobs:
     steps:
       - name: Clone the repository
         uses: actions/checkout@v5
-      - name: Build the Docker image
-        run: docker build -t ninja scripts
-      - name: Build the project
-        run: docker run --rm -v ./:/app ninja scripts/compile.sh
-      - name: Publish the release
-        uses: ncipollo/release-action@v1
+      - name: Build
+        run: echo ${{ github.sha }} > Release.txt
+      - name: Test
+        run: cat Release.txt
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          tag: 1.0.0
-          allowUpdates: true
-          replacesArtifacts: true
-          omitBodyDuringUpdate: true
-          artifacts: /app/build/x86_64-linux-gnu/ninja
-          #artifacts: /app/build/x86_64-linux-gnu/ninja
+          files: Release.txt
+#      - name: Build the Docker image
+#        run: docker build -t ninja scripts
+#      - name: Build the project
+#        run: docker run --rm -v ./:/app ninja scripts/compile.sh
+#      - name: Publish the release
+#        uses: softprops/action-gh-release@v2
+#        with:
+#          files: 1.0.0
