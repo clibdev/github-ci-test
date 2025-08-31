@@ -21,6 +21,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: 1.0.0
           files: Release.txt
 #      - name: Build the Docker image
 #        run: docker build -t ninja scripts
