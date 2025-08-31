@@ -18,10 +18,12 @@ jobs:
         run: docker build -t ninja scripts
       - name: Build the project
         run: docker run --rm -v ./:/app ninja scripts/compile.sh
-      - name: Publish release
+      - name: Publish the release
         uses: ncipollo/release-action@v1
         with:
+          tag: 1.0.0
           allowUpdates: true
           replacesArtifacts: true
           omitBodyDuringUpdate: true
-          artifacts: ./build/x86_64-linux-gnu/ninja
+          artifacts: /app/build/x86_64-linux-gnu/ninja
+          #artifacts: /app/build/x86_64-linux-gnu/ninja
