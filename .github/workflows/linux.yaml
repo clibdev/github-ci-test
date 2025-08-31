@@ -18,6 +18,8 @@ jobs:
         run: |
           VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+')
           CURRENT_VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+')
+          echo "Upstream version: $VERSION"
+          echo "Current version:  $CURRENT_VERSION"
           if [ $VERSION = $CURRENT_VERSION ]; then
             echo 'Already up to date'
             exit 1
