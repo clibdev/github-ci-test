@@ -1,8 +1,12 @@
 name: Linux
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -14,16 +18,16 @@ jobs:
         run: |
           VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+')
           CURRENT_VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+' || true)
+          if [ "$VERSION" = "$CURRENT_VERSION" ]; then
+            echo "Up to date $VERSION."
+            exit 0
+          fi
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
       - name: Clone the repository
-        if: env.VERSION != env.CURRENT_VERSION
         uses: actions/checkout@v5
       - name: Build the project
-        if: env.VERSION != env.CURRENT_VERSION
         run: echo ${{ github.sha }} > Release.txt
       - name: Publish the release
-        if: env.VERSION != env.CURRENT_VERSION
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.VERSION }}
