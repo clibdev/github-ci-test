@@ -18,6 +18,7 @@ for toolchain in "${TOOLCHAINS[@]}"; do
   cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_TESTING=OFF \
       -DCMAKE_EXE_LINKER_FLAGS='-static-libstdc++ -static-libgcc' \
+      -DCMAKE_INSTALL_BINDIR='.' \
       -DCMAKE_INSTALL_PREFIX=/app/build/$toolchain
   cmake --build build -j$(nproc)
   cmake --install build --strip
