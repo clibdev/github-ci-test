@@ -12,11 +12,8 @@ jobs:
       contents: write
     steps:
       - name: Clone the repository
-        if: env.VERSION != env.CURRENT_VERSION
         uses: actions/checkout@v5
       - name: Install the tools
-        if: env.VERSION != env.CURRENT_VERSION
         run: choco install re2c
       - name: Build the project
-        if: env.VERSION != env.CURRENT_VERSION
         run: .\scripts\compile.bat
