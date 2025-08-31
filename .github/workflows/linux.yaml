@@ -17,4 +17,4 @@ jobs:
       - name: Build the Docker image
         run: docker build -t ninja scripts
       - name: Build the project
-        run: docker run -it --rm -v ./:/app ninja scripts/compile.sh
+        run: docker run --rm -v ./:/app ninja scripts/compile.sh
