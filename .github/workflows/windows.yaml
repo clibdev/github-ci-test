@@ -11,12 +11,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Get the latest version
-        run: |
-          VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+')
-          CURRENT_VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+' || true)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
       - name: Clone the repository
         if: env.VERSION != env.CURRENT_VERSION
         uses: actions/checkout@v5
