@@ -19,7 +19,9 @@ for toolchain in "${TOOLCHAINS[@]}"; do
       -DBUILD_TESTING=OFF \
       -DCMAKE_EXE_LINKER_FLAGS='-static-libstdc++ -static-libgcc' \
       -DCMAKE_INSTALL_BINDIR='.' \
-      -DCMAKE_INSTALL_PREFIX=/app/build/$toolchain
+      -DCMAKE_INSTALL_PREFIX=/app/build
   cmake --build build -j$(nproc)
   cmake --install build --strip
+
+  mv /app/build/ninja /app/build/ninja-$toolchain
 done
