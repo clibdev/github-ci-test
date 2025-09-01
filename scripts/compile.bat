@@ -7,6 +7,8 @@ cd ninja
 cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release^
     -DBUILD_TESTING=OFF^
     -DCMAKE_INSTALL_BINDIR='.'^
-    -DCMAKE_INSTALL_PREFIX=.\build
+    -DCMAKE_INSTALL_PREFIX=..\build
 cmake --build build -j%NUMBER_OF_PROCESSORS%
 cmake --install build --strip
+
+dir ..\build
