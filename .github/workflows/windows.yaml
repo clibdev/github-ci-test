@@ -19,4 +19,6 @@ jobs:
       - name: Install the tools
         run: choco install re2c
       - name: Build the application
-        run: .\scripts\compile.bat
+        run: |
+          cmake -Bbuild -A "x64" -DCMAKE_COMPILE_WARNING_AS_ERROR=1
+          cmake --build build --parallel --config Release
