@@ -19,4 +19,7 @@ jobs:
       - name: Install the tools
         run: choco install re2c
       - name: Build the application
-        run: .\scripts\compile.bat
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          .\scripts\compile.bat
