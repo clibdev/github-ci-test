@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eo pipefail
 
 VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+')
 
