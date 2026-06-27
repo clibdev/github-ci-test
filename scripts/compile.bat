@@ -8,7 +8,7 @@ echo %VERSION%
 set WORKDIR=%CD%
 
 cd %WORKDIR%
-git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=v1.13.1
+git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=%VERSION%
 cd ninja
 
 cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release^
