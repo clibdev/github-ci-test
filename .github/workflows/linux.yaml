@@ -30,5 +30,4 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           body: "[Release notes](https://github.com/ninja-build/ninja/releases/tag/${{ env.VERSION }})"
-          files: |
-            ./build/*
+          files: ./build/*
