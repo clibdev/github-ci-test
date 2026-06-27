@@ -27,7 +27,7 @@ jobs:
         shell: cmd
         run: |
           call "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          .\scripts\compile.bat
+          .\scripts\compile.bat 2>&1 | tee build\ninja-x86_64-windows-msvc.txt
       - name: Publish the release
         if: env.VERSION != env.CURRENT_VERSION
         uses: softprops/action-gh-release@v3
