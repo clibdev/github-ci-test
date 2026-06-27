@@ -27,6 +27,7 @@ jobs:
         shell: cmd
         run: |
           call "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          mkdir build 2>nul
           .\scripts\compile.bat 2>&1 | tee build\ninja-x86_64-windows-msvc.txt
       - name: Publish the release
         if: env.VERSION != env.CURRENT_VERSION
