@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-for /f "tokens=2 delims=:," %%i in ('curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest ^| findstr "tag_name"') do set VERSION=%%~i
+for /f "tokens=2 delims=:, " %%i in ('curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest ^| findstr "tag_name"') do set VERSION=%%~i
 set VERSION=%VERSION:"=%
 echo %VERSION%
 
