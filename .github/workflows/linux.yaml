@@ -17,7 +17,7 @@ jobs:
           echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
       - name: Clone the repository
         if: env.VERSION != env.CURRENT_VERSION
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
       - name: Build the Docker image
         if: env.VERSION != env.CURRENT_VERSION
         run: ./setup.sh build-image
@@ -32,6 +32,4 @@ jobs:
           body: "[Release notes](https://github.com/ninja-build/ninja/releases/tag/${{ env.VERSION }})"
           files: |
             ./build/ninja-aarch64-linux-gnu.tar.gz
-            ./build/ninja-arm-linux-gnueabi.tar.gz
-            ./build/ninja-riscv64-linux-gnu.tar.gz
             ./build/ninja-x86_64-linux-gnu.tar.gz

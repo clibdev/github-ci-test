@@ -8,8 +8,6 @@ mkdir -p /app/build
 TOOLCHAINS=(
   'x86_64-linux-gnu'
   'aarch64-linux-gnu'
-  'arm-linux-gnueabi'
-  'riscv64-linux-gnu'
 )
 
 for toolchain in "${TOOLCHAINS[@]}"; do
