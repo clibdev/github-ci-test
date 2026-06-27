@@ -11,10 +11,11 @@ TOOLCHAINS=(
 )
 
 for toolchain in "${TOOLCHAINS[@]}"; do
+{
+  echo $VERSION
   export CXX=/opt/$toolchain/bin/$toolchain-g++
 
-  cd /tmp/ninja
-  rm -rf build
+  cd /tmp/ninja && rm -rf build
   cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=build/install \
     -DCMAKE_INSTALL_BINDIR='.' \
@@ -24,4 +25,5 @@ for toolchain in "${TOOLCHAINS[@]}"; do
   cmake --install build --strip
 
   cd build/install && tar czf /app/build/ninja-$toolchain.tar.gz ninja
+} 2>&1 | tee /app/build/ninja-$toolchain.txt
 done

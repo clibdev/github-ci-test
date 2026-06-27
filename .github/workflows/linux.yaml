@@ -26,10 +26,9 @@ jobs:
         run: ./setup.sh build-app
       - name: Publish the release
         if: env.VERSION != env.CURRENT_VERSION
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.VERSION }}
           body: "[Release notes](https://github.com/ninja-build/ninja/releases/tag/${{ env.VERSION }})"
           files: |
-            ./build/ninja-aarch64-linux-gnu.tar.gz
-            ./build/ninja-x86_64-linux-gnu.tar.gz
+            ./build/*
