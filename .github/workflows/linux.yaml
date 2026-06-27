@@ -31,5 +31,7 @@ jobs:
           tag_name: ${{ env.VERSION }}
           body: "[Release notes](https://github.com/ninja-build/ninja/releases/tag/${{ env.VERSION }})"
           files: |
-            ./build/ninja-x86_64-linux-gnu
-            ./build/ninja-aarch64-linux-gnu
+            ./build/ninja-aarch64-linux-gnu.tar.gz
+            ./build/ninja-arm-linux-gnueabi.tar.gz
+            ./build/ninja-riscv64-linux-gnu.tar.gz
+            ./build/ninja-x86_64-linux-gnu.tar.gz
