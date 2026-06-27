@@ -6,7 +6,6 @@ set VERSION=%VERSION:"=%
 
 set WORKDIR=%CD%
 
-cd %WORKDIR%
 git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=%VERSION%
 cd ninja
 
