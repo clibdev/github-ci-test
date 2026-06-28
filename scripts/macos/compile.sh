@@ -15,6 +15,7 @@ WORKDIR=$(pwd)
   cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=build/install \
     -DCMAKE_INSTALL_BINDIR='.' \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0 \
     -DBUILD_TESTING=OFF
   cmake --build build -j$(sysctl -n hw.logicalcpu)
   cmake --install build --strip
