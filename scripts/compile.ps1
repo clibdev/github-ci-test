@@ -1,22 +1,28 @@
 $ErrorActionPreference = "Stop"
-
-$VERSION = (Invoke-RestMethod https://api.github.com/repos/ninja-build/ninja/releases/latest).tag_name
 $WORKDIR = $PWD
 
-git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=$VERSION *> $null
-New-Item -ItemType Directory -Force -Path $WORKDIR\build | Out-Null
+$VERSION = (Invoke-RestMethod https://api.github.com/repos/ninja-build/ninja/releases/latest).tag_name
 
-Set-Location ninja
+git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=$VERSION
+mkdir -Force $WORKDIR\build | Out-Null
 
+$TOOLCHAINS = @(
+  @{ Name = 'x86_64-windows-msvc'; Arch = 'x64' }
+  @{ Name = 'aarch64-windows-msvc';  Arch = 'ARM64' }
+)
+
+foreach ($toolchain in $TOOLCHAINS) {
 & {
-  Write-Output $VERSION
+  echo $VERSION
 
-  cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release `
-    -DCMAKE_INSTALL_PREFIX="$WORKDIR\build" `
-    -DCMAKE_INSTALL_BINDIR="." `
+  cd $WORKDIR\ninja && rm -r -Force build -ea SilentlyContinue
+  cmake -B build -A $toolchain.Arch -DCMAKE_BUILD_TYPE=Release `
+    -DCMAKE_INSTALL_PREFIX=build\install `
+    -DCMAKE_INSTALL_BINDIR='.' `
     -DBUILD_TESTING=OFF
-  cmake --build build -j $env:NUMBER_OF_PROCESSORS
-  cmake --install build --strip
+  cmake --build build --config Release -j$env:NUMBER_OF_PROCESSORS
+  cmake --install build --config Release --strip
 
-  Move-Item $WORKDIR\build\ninja.exe $WORKDIR\build\ninja-x86_64-windows-msvc.exe
-} 2>&1 | Tee-Object -FilePath $WORKDIR\build\ninja-x86_64-windows-msvc.txt
+  cd build\install && tar czf $WORKDIR\build\ninja-$($toolchain.Name).tar.gz ninja.exe
+} 2>&1 | tee $WORKDIR\build\ninja-$($toolchain.Name).txt
+}

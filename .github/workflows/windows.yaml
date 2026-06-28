@@ -24,10 +24,7 @@ jobs:
         run: choco install re2c
       - name: Build the application
         if: env.VERSION != env.CURRENT_VERSION
-        shell: cmd
-        run: |
-          call "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          pwsh -File .\scripts\compile.ps1
+        run: .\scripts\compile.ps1
       - name: Publish the release
         if: env.VERSION != env.CURRENT_VERSION
         uses: softprops/action-gh-release@v3
