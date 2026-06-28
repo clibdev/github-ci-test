@@ -19,5 +19,5 @@ WORKDIR=$(pwd)
   cmake --build build -j$(nproc)
   cmake --install build --strip
 
-  cd build/install && tar czf $WORKDIR/build/ninja-x86_64-freebsd.tar.gz ninja
-} 2>&1 | tee $WORKDIR/build/ninja-x86_64-freebsd.txt
+  cd build/install && tar czf $WORKDIR/build/ninja-x86_64-freebsd-clang.tar.gz ninja
+} 2>&1 | tee $WORKDIR/build/ninja-x86_64-freebsd-clang.txt
