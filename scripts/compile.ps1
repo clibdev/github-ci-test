@@ -14,7 +14,7 @@ $TOOLCHAINS=@(
 foreach ($toolchain in $TOOLCHAINS) {
 & {
   echo $VERSION
-  cmd /c "`"$($toolchain[1])`" && set" | % { if ($_ -match '([^=]+)=(.*)') { si "env:$($Matches[1])" $Matches[2] } }
+  cmd /c "`"$($toolchain[1])`" && set" | % { if ($_ -match '([^=]+)=(.*)') { [Environment]::SetEnvironmentVariable($Matches[1], $Matches[2]) } }
 
   cd $WORKDIR\ninja && rm -r -Force build -ea SilentlyContinue
   cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release `
