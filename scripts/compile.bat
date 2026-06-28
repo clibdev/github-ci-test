@@ -9,9 +9,9 @@ git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=%VERSION%
 cd ninja
 
 cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release^
-    -DCMAKE_INSTALL_PREFIX=%WORKDIR%\build^
-    -DCMAKE_INSTALL_BINDIR='.'^
-    -DBUILD_TESTING=OFF
+  -DCMAKE_INSTALL_PREFIX=%WORKDIR%\build^
+  -DCMAKE_INSTALL_BINDIR='.'^
+  -DBUILD_TESTING=OFF
 cmake --build build -j%NUMBER_OF_PROCESSORS%
 cmake --install build --strip
 
