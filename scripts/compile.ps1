@@ -6,7 +6,7 @@ $VERSION = (Invoke-RestMethod https://api.github.com/repos/ninja-build/ninja/rel
 git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=$VERSION
 mkdir -Force $WORKDIR\build | Out-Null
 
-$TOOLCHAINS = @(
+$TOOLCHAINS=@(
   @('x86_64-windows-msvc', "$($args[0])\vcvars64.bat")
   @('aarch64-windows-msvc', "$($args[0])\vcvarsamd64_arm64.bat")
 )
