@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eo pipefail
 
-VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep -oE '"tag_name": "v[0-9.]+"' | grep -oE 'v[0-9.]+')
+VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep "tag_name" | grep -oE 'v[0-9.]+')
 
 git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=$VERSION /tmp/ninja
 mkdir -p build
