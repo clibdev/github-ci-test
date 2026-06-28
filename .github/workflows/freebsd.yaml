@@ -22,7 +22,7 @@ jobs:
         if: env.VERSION != env.CURRENT_VERSION
         uses: vmactions/freebsd-vm@v1
         with:
-          prepare: pkg install -y cmake ninja re2c
+          prepare: pkg install -y curl cmake ninja re2c
           run: ./scripts/freebsd/compile.sh
       - name: Publish the release
         if: env.VERSION != env.CURRENT_VERSION
