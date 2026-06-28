@@ -13,7 +13,7 @@ TOOLCHAINS=(
 
 for toolchain in "${TOOLCHAINS[@]}"; do
 {
-  echo "$VERSION"
+  echo $VERSION
   export CXX=/opt/$toolchain/bin/$toolchain-g++
 
   cd /tmp/ninja && rm -rf build
