@@ -8,7 +8,7 @@ mkdir -Force $WORKDIR\build | Out-Null
 
 $TOOLCHAINS=@(
   @('x86_64-windows-msvc', "$($args[0])\vcvars64.bat"),
-  @('aarch64-windows-msvc', "$($args[0])\vcvarsamd64_arm64.bat"),
+  @('aarch64-windows-msvc', "$($args[0])\vcvarsamd64_arm64.bat")
 )
 
 foreach ($toolchain in $TOOLCHAINS) {
