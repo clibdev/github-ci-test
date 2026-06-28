@@ -15,7 +15,6 @@ WORKDIR=$(pwd)
   cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=build/install \
     -DCMAKE_INSTALL_BINDIR='.' \
-    -DCMAKE_EXE_LINKER_FLAGS='-static' \
     -DBUILD_TESTING=OFF
   cmake --build build -j$(nproc)
   cmake --install build --strip
