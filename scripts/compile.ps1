@@ -7,14 +7,14 @@ git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=$VERSION
 mkdir -Force $WORKDIR\build | Out-Null
 
 $TOOLCHAINS=@(
-  @('x86_64-windows-msvc', "$($args[0])\vcvars64.bat")
-  @('aarch64-windows-msvc', "$($args[0])\vcvarsamd64_arm64.bat")
+  @('x86_64-windows-msvc', "$($args[0])\vcvars64.bat"),
+  @('aarch64-windows-msvc', "$($args[0])\vcvarsamd64_arm64.bat"),
 )
 
 foreach ($toolchain in $TOOLCHAINS) {
 & {
   echo $VERSION
-  cmd /c "`"$($toolchain[1])`" && set" | % { if ($_ -match '([^=]+)=(.*)') { [Environment]::SetEnvironmentVariable($Matches[1], $Matches[2]) } }
+  cmd /c "`"$($toolchain[1])`" && set" | % { if ($_ -match '([^=]+)=(.*)') { si "env:$($Matches[1])" $Matches[2] } }
 
   cd $WORKDIR\ninja && rm -r -Force build -ea SilentlyContinue
   cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release `
