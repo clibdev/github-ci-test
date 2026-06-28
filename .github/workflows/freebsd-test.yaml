@@ -1,0 +1,16 @@
+name: FreeBSD Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the artifact
+        run: curl -sL https://github.com/${{ github.repository }}/releases/latest/download/ninja-x86_64-freebsd-clang.tar.gz | tar xz
+      - name: Test the binary
+        uses: vmactions/freebsd-vm@v1
+        with:
+          release: "15.0"
+          run: ./ninja --version
