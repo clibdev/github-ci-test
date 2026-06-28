@@ -1,0 +1,33 @@
+name: FreeBSD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Get the latest version
+        run: |
+          VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+')
+          CURRENT_VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+' || true)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+      - name: Clone the repository
+        if: env.VERSION != env.CURRENT_VERSION
+        uses: actions/checkout@v7
+      - name: Build the application
+        if: env.VERSION != env.CURRENT_VERSION
+        uses: vmactions/freebsd-vm@v1
+        with:
+          prepare: pkg install -y cmake ninja re2c
+          run: ./scripts/freebsd/compile.sh
+      - name: Publish the release
+        if: env.VERSION != env.CURRENT_VERSION
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ env.VERSION }}
+          body: "[Release notes](https://github.com/ninja-build/ninja/releases/tag/${{ env.VERSION }})"
+          files: ./build/*
