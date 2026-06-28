@@ -20,7 +20,7 @@ foreach ($toolchain in $TOOLCHAINS) {
     -DCMAKE_INSTALL_PREFIX=build\install `
     -DCMAKE_INSTALL_BINDIR='.' `
     -DBUILD_TESTING=OFF
-  cmake --build build --config Release -j$env:NUMBER_OF_PROCESSORS
+  cmake --build build --config Release -j$($env:NUMBER_OF_PROCESSORS)
   cmake --install build --config Release --strip
 
   cd build\install && tar czf $WORKDIR\build\ninja-$($toolchain.Name).tar.gz ninja.exe
