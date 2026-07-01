@@ -14,8 +14,9 @@ jobs:
           VERSION=$(basename $(curl -sILo /dev/null -w '%{url_effective}' https://github.com/ninja-build/ninja/releases/latest))
           TESTING=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/tags/$VERSION)
           echo $TESTING
-          ARTIFACT=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/tags/$VERSION | grep -o ninja-aarch64-macos-clang.tar.gz || true)
-          printf "VERSION=$VERSION\nARTIFACT=$ARTIFACT\n" >> $GITHUB_ENV
+          ARTIFACT=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/tags/$VERSION | grep -o macos || true)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "ARTIFACT=$ARTIFACT" >> $GITHUB_ENV
       - name: Clone the repository
         if: env.ARTIFACT == ''
         uses: actions/checkout@v7
