@@ -13,7 +13,7 @@ jobs:
         shell: bash
         run: |
           VERSION=$(basename $(curl -sILo /dev/null -w '%{url_effective}' https://github.com/ninja-build/ninja/releases/latest))
-          ARTIFACT=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/tags/$VERSION | grep -om1 linux || true)
+          ARTIFACT=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/tags/$VERSION | grep -om1 windows || true)
           printf "VERSION=$VERSION\nARTIFACT=$ARTIFACT\n" >> $GITHUB_ENV
       - name: Clone the repository
         if: env.ARTIFACT == ''

@@ -11,21 +11,20 @@ jobs:
     steps:
       - name: Get the latest version
         run: |
-          VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep tag_name | grep -Eo 'v[0-9.]+')
-          CURRENT_VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep tag_name | grep -Eo 'v[0-9.]+' || true)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+          VERSION=$(basename $(curl -sILo /dev/null -w '%{url_effective}' https://github.com/ninja-build/ninja/releases/latest))
+          ARTIFACT=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/tags/$VERSION | grep -om1 macos || true)
+          printf "VERSION=$VERSION\nARTIFACT=$ARTIFACT\n" >> $GITHUB_ENV
       - name: Clone the repository
-        if: env.VERSION != env.CURRENT_VERSION
+        if: env.ARTIFACT == ''
         uses: actions/checkout@v7
       - name: Install the tools
-        if: env.VERSION != env.CURRENT_VERSION
+        if: env.ARTIFACT == ''
         run: brew install re2c
       - name: Build the application
-        if: env.VERSION != env.CURRENT_VERSION
+        if: env.ARTIFACT == ''
         run: ./scripts/macos/compile.sh
       - name: Publish the release
-        if: env.VERSION != env.CURRENT_VERSION
+        if: env.ARTIFACT == ''
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.VERSION }}
