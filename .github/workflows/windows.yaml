@@ -12,21 +12,20 @@ jobs:
       - name: Get the latest version
         shell: bash
         run: |
-          VERSION=$(curl -s https://api.github.com/repos/ninja-build/ninja/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+')
-          CURRENT_VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep -Po '"tag_name": "\Kv[0-9.]+' || true)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+          VERSION=$(basename $(curl -sILo /dev/null -w '%{url_effective}' https://github.com/ninja-build/ninja/releases/latest))
+          ARTIFACT=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/tags/$VERSION | grep -om1 linux || true)
+          printf "VERSION=$VERSION\nARTIFACT=$ARTIFACT\n" >> $GITHUB_ENV
       - name: Clone the repository
-        if: env.VERSION != env.CURRENT_VERSION
+        if: env.ARTIFACT == ''
         uses: actions/checkout@v7
       - name: Install the tools
-        if: env.VERSION != env.CURRENT_VERSION
+        if: env.ARTIFACT == ''
         run: choco install re2c
       - name: Build the application
-        if: env.VERSION != env.CURRENT_VERSION
+        if: env.ARTIFACT == ''
         run: .\scripts\windows\compile.ps1 "C:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Auxiliary\Build"
       - name: Publish the release
-        if: env.VERSION != env.CURRENT_VERSION
+        if: env.ARTIFACT == ''
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.VERSION }}
