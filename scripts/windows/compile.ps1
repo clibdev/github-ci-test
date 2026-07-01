@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 $WORKDIR = $PWD
 
-$VERSION = (Invoke-RestMethod https://api.github.com/repos/ninja-build/ninja/releases/latest).tag_name
+$VERSION = (curl -sILo NUL -w '%{url_effective}' https://github.com/ninja-build/ninja/releases/latest).Split('/')[-1]
 
 git clone https://github.com/ninja-build/ninja.git --depth=1 --branch=$VERSION
 mkdir -Force $WORKDIR\build | Out-Null
