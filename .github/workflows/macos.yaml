@@ -14,8 +14,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION=$(basename $(curl -sILo /dev/null -w '%{url_effective}' https://github.com/ninja-build/ninja/releases/latest))
-          gh release view $VERSION --repo ${{ github.repository }} || true
-          ARTIFACT=$(gh release view $VERSION --repo ${{ github.repository }} 2>/dev/null | grep -om1 macos || true)
+          ARTIFACT=$(gh release view $VERSION -R ${{ github.repository }} | grep -om1 macos || true)
           printf "VERSION=$VERSION\nARTIFACT=$ARTIFACT\n" >> $GITHUB_ENV
       - name: Clone the repository
         if: env.ARTIFACT == ''
