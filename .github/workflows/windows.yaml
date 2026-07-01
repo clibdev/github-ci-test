@@ -13,7 +13,7 @@ jobs:
         shell: bash
         run: |
           VERSION=$(basename $(curl -sILo /dev/null -w '%{url_effective}' https://github.com/ninja-build/ninja/releases/latest))
-          ARTIFACT=$(GH_TOKEN=${{ github.token }} gh release view $VERSION -R ${{ github.repository }} | grep -om1 macos || true)
+          ARTIFACT=$(GH_TOKEN=${{ github.token }} gh release view $VERSION -R ${{ github.repository }} | grep -om1 windows || true)
           printf "VERSION=$VERSION\nARTIFACT=$ARTIFACT\n" >> $GITHUB_ENV
       - name: Clone the repository
         if: env.ARTIFACT == ''
